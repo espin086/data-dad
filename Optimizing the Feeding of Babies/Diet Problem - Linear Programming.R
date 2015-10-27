@@ -57,6 +57,11 @@ lhs.constraint <- rbind(lhs.constraint, lhs.vitaminC.constraint)
 #######################
 #Solving the Linear Programming Problem
 library(linprog)
-solveLP(cost, rhs.constraint, lhs.constraint, maximum = FALSE)
+answer <- solveLP(cost, rhs.constraint, lhs.constraint, maximum = FALSE)
 
+answer$opt
+answer$solution
+answer$con
 
+#######################
+#Visualizing Solution
