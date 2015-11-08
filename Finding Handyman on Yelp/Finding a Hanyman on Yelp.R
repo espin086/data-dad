@@ -15,10 +15,17 @@ handy$notes <- as.character(handy$notes)
 
 handy$notes[handy$Name == "Your Local Handyman, Inc" | 
               handy$Name =="Webbâs Handyman Service" | 
-              handy$Name =="Victor White Handyman" | handy$Name =="Professional Handyman" ] <- "Messaged"
+              handy$Name =="Victor White Handyman" | 
+              handy$Name =="Professional Handyman" |
+              handy$Name == "Honey-Do Handyman" |
+              handy$Name == "15th Street Handy Man"] <- "Messaged"
 
-handy$notes[handy$Name == "M.Y. Handyman Services" | handy$Name == "Alâs Handyman Service"] <- "No SFS"
+handy$notes[handy$Name == "M.Y. Handyman Services" | 
+              handy$Name == "Alâs Handyman Service" |
+              handy$Name == "Guys OC Handyman" |
+              handy$Name == "LC Handyman"] <- "No SFS"
 
+#Splitting list by the notes variables
 handy.list <- split(handy, handy$notes)
 
 uncalled <- handy.list$Uncalled
@@ -48,8 +55,10 @@ for (i in 1:10) {
 plot(list.within,type="b", main = "Sum of Squared Scree Plot" , xlab="Number of Clusters",
      ylab="Within groups sum of squares", col = "red")
 
+num.clusters <- 4
+
 #Performig the optimal clustering based on the plot above.
-km.out = kmeans(scale(uncalled[2:3]), 6, nstart = 100)
+km.out = kmeans(scale(uncalled[2:3]), num.clusters, nstart = 100)
 
 #Summarizing clusters and visualizing in two dimentional graph
 km.out
@@ -72,9 +81,9 @@ plot(hc.average, main = "Average Linkage", xlab = "", ylab="")
 plot(hc.single, main = "Single Linkage", xlab = "", ylab="")
 
 
-uncalled.clustered <- cbind(uncalled.clustered, cutree(hc.complete, 6))
-uncalled.clustered <- cbind(uncalled.clustered, cutree(hc.average, 6))
-uncalled.clustered <- cbind(uncalled.clustered, cutree(hc.single, 6))
+uncalled.clustered <- cbind(uncalled.clustered, h.complete = cutree(hc.complete, num.clusters))
+uncalled.clustered <- cbind(uncalled.clustered, h.average = cutree(hc.average, num.clusters))
+uncalled.clustered <- cbind(uncalled.clustered, h.single = cutree(hc.single, num.clusters))
 
 
 ###############################################
@@ -85,7 +94,6 @@ plot(uncalled.clustered[2:3], col = (km.out$cluster + 1), main = "K-Means Cluste
 plot(uncalled.clustered[2:3], col = (uncalled.clustered$`cutree(hc.complete, 6)` + 1), main = "Hierarchical Clustering - Complete", ylab="Yelp Stars", xlab="Yelp Reviews", pch=20, cex=2)
 plot(uncalled.clustered[2:3], col = (uncalled.clustered$`cutree(hc.average, 6)` + 1), main = "Hierarchical Clustering - Average", ylab="Yelp Stars", xlab="Yelp Reviews", pch=20, cex=2)
 plot(uncalled.clustered[2:3], col = (uncalled.clustered$`cutree(hc.single, 6)` + 1), main = "Hierarchical Clustering - Single", ylab="Yelp Stars", xlab="Yelp Reviews", pch=20, cex=2)
-
 
 
 ##################
