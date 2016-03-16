@@ -33,4 +33,28 @@ names(bwght2) <- c("mage","meduc", "monpre", "npvis", "fage", "feduc", "bwght",
 #magesq            mage^2
 #npvissq           npvis^2
 
+str(bwght2)
+summary(bwght2)
+head(bwght2)
+tail(bwght2)
+
+#What is are the number of prenatal visits that maximize birthweight?
+lm.1 <- lm(bwght ~ npvis + npvissq, data = bwght2)
+summary(lm.1)
+plot(bwght2$npvis, bwght2$bwght, col="red", pch = 20, 
+     xlab = "Prenatal Visits",
+     ylab = "Birth Weight in Grams",
+     main = "Relationship between doctor visits and baby weight")
+abline(lm.1, col="blue")
+
+
+#Controlling for pre-natal visits what is the optimum age for birthweight
+lm.2 <- lm(bwght ~ npvis + npvissq + mage + magesq, data = bwght2)
+summary(lm.2)
+plot(bwght2$mage, bwght2$bwght, col="red", pch = 20, 
+     xlab = "Mother's Age",
+     ylab = "Birth Weight in Grams",
+     main = "Relationship between mother's age and baby weight")
+abline(lm.2, col="blue")
+
 
