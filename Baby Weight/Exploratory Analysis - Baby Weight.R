@@ -57,4 +57,15 @@ plot(bwght2$mage, bwght2$bwght, col="red", pch = 20,
      main = "Relationship between mother's age and baby weight")
 abline(lm.2, col="blue")
 
+#Actual distribution of prenatal visits and mother's age
+hist(bwght2$npvis, col = "red", xlab = "Prenatal Visits", 
+     main = "Histogram of Prenatal Visits")
+summary(bwght2$npvis)
+
+hist(bwght2$mage, col = "red", xlab = "Mother's Age", 
+     main = "Histogram of Mother's Age")
+summary(bwght2$mage)
+
+
+
 
